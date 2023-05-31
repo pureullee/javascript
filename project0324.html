@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body id ="b">
+
+    <script>
+        let time = prompt("1~10 사의의 정수를 입력해주세요.") // time은 문자열
+        stopTime = parseInt(time) + 1 // 정수형으로 바꾼 후 1 더함 0까지 새야하기 때문
+        time = parseInt(time) 
+
+        document.querySelector("#b").innerHTML = time //일단 입력받은 값을 바디에 올림
+        let s = setInterval(()=>{
+            time = time - 1
+            document.querySelector("#b").innerHTML = time
+        },1000) //1초가 지나면 값이 작아진다 
+
+        setTimeout(()=>{
+            clearInterval(s)
+        }, stopTime * 1000)//기본 단위가 밀리초기때문 stopTime에 1000을곱합.
+    </script>
+
+    
+    
+</body>
+</html>

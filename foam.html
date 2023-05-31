@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        var info = {}
+
+        function submit_chk(myForm){
+            let name = document.getElementById('user_name').value
+            let tel = document.getElementById('user_tel').value
+            info[name] = tel
+            return false
+        }
+        function reset_chk(myForm){
+            document.getElementById('user_name').value =''
+            document.getElementById('user_tel').value =''
+            document.f1.user_name.focus()
+            return false
+        }
+    
+        function pr(){
+            document.getElementById('infoPrint').innerText =''
+            for (let i in info){
+                document.getElementById('infoPrint').innerText += `username : ${i}_______usertel : ${info[i]} \n`
+            }
+        }
+
+        function clr()
+        {
+            document.getElementById('infoPrint').innerText =''
+        }
+    
+    </script>
+</head>
+<body onload="document.f1.user_name.focus()">
+<form action ='#' method="POST" name ="f1" onsubmit="return submit_chk(this)"
+onreset="return reset_chk(this)">
+<fieldset>
+    <legend> 회원 가입</legend>
+        <p>
+            <label for = "user_name"> 이름 </label>
+            <input type="text" name="user_name" id="user_name">
+        </p>
+        <p>
+            <label for = "user_tel"> 연락처 </label>
+            <input type="text" name="user_tel" id="user_tel">
+        </p>
+        <p>
+            <input type="submit" value="회원가입">
+            <input type="reset" value="가입취소">
+            
+        </p>
+        <button onclick="pr()">프린트</button>
+        <button onclick ="clr()">클리어</button>
+</fieldset>
+</form>
+<div id="infoPrint"></div>
+    
+
+</body>
+</html>

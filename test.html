@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        window.onload = function()
+        {
+           
+            function s()
+            {
+                alert('눌렀네 잘')
+            }
+            let name = document.getElementById('name')
+            name.onkeypress = function(event){
+                if (event.key ==='a'){
+                    alert('a키를 누름')
+                }
+            }
+            let phone = document.getElementById('phone')
+            phone.onblur = function()
+            {
+                alert('폰에 관심가져줘')
+            }
+            let btn2 = document.getElementById('btn2')
+            btn2.onmouseout = function()
+            {
+                document.getElementById('re').innerText = "사랑해"
+            }
+        }
+        
+    </script>
+
+    
+    <ol>
+    <li>
+        
+        <input type="text" onkeydown="s()">
+        
+    </li>
+
+    <li>
+        <label for="name">이름:</label>
+    </li>
+
+    
+    </ol>
+    <label for="name">이름:</label>
+    <input type = "text" id="name">
+    <label for="phone">번호:</label>
+    <input type = "text" id="phone">
+    <button id ="btn2">떼면 안된다~</button>
+    <label for="re" id="re">뭔데</label>
+    
+</body>
+</html>

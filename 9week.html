@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div name = "input" >
+        <input name ="intext">
+        <button id ="btn1" onclick = "text('add')">추가</button>
+        <button id ="btn2" onclick = "text('insert')">삽입</button>
+        <button id ="btn3" onclick = "clr()">초기화</button>
+        <button id ="btn4" onclick = "remove('first')">첫번째삭제</button>
+        <button id ="btn5" onclick = "remove('last')">마지막삭제</button>
+    </div>
+    <div name = "out" ></div>
+</body>
+<script>
+    var nodesCount = 0 
+    function text(s){ // append, insert's variable is same, so it's solved as a param
+        var newLi = document.createElement('li') //create a list element
+        var intext = document.getElementsByName('intext')[0] // getElementsByname should return []
+        var newT = document.createTextNode(intext.value) // li's childNode 
+        newLi.appendChild(newT) // append
+
+        var out = document.getElementsByName('out')[0] // return []
+        if (s=='add'){ //btn1
+            out.appendChild(newLi)
+        }
+        else if (s=='insert')//btn2
+        {
+            out.insertBefore(newLi, out.childNodes[0])
+        }
+        intext.value ="" // init
+        nodesCount++ // it is required to solve 'pop(-1)'
+    }
+
+    function clr() //delete allChild
+    {
+        var out = document.getElementsByName('out')[0]
+        while (out.hasChildNodes()){  
+            out.removeChild(out.childNodes[0])  
+        }
+        nodesCount = 0
+    }
+
+    function remove(s)//it is too same 
+    {
+        var out = document.getElementsByName('out')[0]
+
+        if (out.hasChildNodes()) // nodesCount is always  (0<=)
+        {
+            
+            if (s=='first')
+            {
+                out.removeChild(out.childNodes[0])
+            }
+            else if (s=='last')
+            {
+                out.removeChild(out.childNodes[nodesCount-1]) // nodesCount-1 is last index
+            }
+
+            nodesCount--
+        }
+        
+    }
+</script>
+</html>

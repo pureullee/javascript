@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body>
+    <!--PART1-->
+    <div id = containerP1>
+        <div id = containerP1_1>
+            <h2>Create Account</h2>
+            <form action="#" id="signUp" onsubmit="return submit_chk(this)" onreset="return reset_chk(this)">
+                <ul id="userInfo">
+                    <li>
+                        <label for="userInfoId" class="field">ID</label>
+                        <input type="text" id="userInfoId" placeholder="5-20 lowercase letters, numbers" required>
+                    </li>
+                    <li>
+                        <label for="userInfoPass1" class="field">Password</label>
+                        <input type="text" id="userInfoPass1" placeholder="8-12 characters. A combination of uppercase letters, lowercase letters, numbers, and symbol" required>
+                    </li>
+                    <li>
+                        <label for="userInfoPass2" class="field">Confirm Password</label>
+                        <input type="text" id="userInfoPass2" required>
+                    </li>
+                </ul>
+                <ul id="singUpbuttons">
+                    <li>
+                        <button type="submit" class="btn btnBlack">Sign up</button>					
+                    </li>
+                    <li>
+                        <button type="reset" class="btn btnGray">Cancel</button>
+                    </li>
+                </ul>
+            </form>
+        </div>
+        <div id = containerP1_2>
+            <h2>Sign in</h2>
+            <form action="#" id="signIn" onsubmit="return submit_log(this)">
+                <ul id="user">
+                    <li>
+                        <label for="userId" class="field">ID</label>
+                        <input type="text" id="userId" required>
+                    </li>
+                    <li>
+                        <label for="userPass" class="field">Password</label>
+                        <input type="text" id="userPass" required>
+                    </li>
+                </ul>
+
+                <ul id="signInbuttons">
+                    <li>
+                        <button type="submit" class="btn btnBlack">Login</button>					
+                    </li>
+                </ul>
+        </div>
+    </div>
+
+
+    <!--PART2-->
+
+    <div id="containerP2" style="display:None">
+        <h2>Admin mode</h2>
+        
+    </div>
+
+    <!--PART3-->
+
+    <div id="containerP3" style="display:None">
+        <h2></h2>
+        
+    </div>
+
+
+
+    
+    <script>
+        // SignUp 변수
+        var $signUpId = $("#userInfoId")
+        var $signUpPass1 = $("#userInfoPass1")
+        var $singUpPass2 = $("#userInfoPass2")
+        var userData = []
+
+        // SignIn 변수
+
+        var $signInId = $("#userId")
+        var $signInPass = $("#userPass")
+
+
+        //ContainerP3 부분
+
+        $("#containerP3 h2").text(`Welcome! ${$signInId.val()}`)
+
+        function isUserInfoId(id){
+            for(let info of userData){
+                if (id === info.userInfoId){
+                    return true
+                }
+            }
+            return false
+        }
+
+        function isPreserveId(id){
+            let reg = /^[a-z0-9]{5,20}$/g
+            // 규정이 통과하면
+            return reg.test(id)
+        }
+
+        function isPreservePass(pass){
+            let reg = /^(?=.*?[A-Z])(?=.*[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*()]).{8,12}$/g
+            return reg.test(pass)
+        
+        }
+
+        function submit_chk(){
+            
+            if (isUserInfoId($signUpId.val())){
+                alert("ID already exist in our records. Please try another one or log in")
+                
+            }
+
+            else if (!isPreserveId($signUpId.val())){
+                alert("Please follow the rules and enter your ID")
+            }
+
+            else if (!isPreservePass($signUpPass1.val())){
+                alert("Please enter your passward 8-12 characters. A combination of uppercase letters, lowercase letters, numbers, and symbol")
+            }
+
+            else if ($signUpPass1.val() !== $singUpPass2.val()){
+                alert("The password you entered does not match. Please check again.")
+            }
+
+            else if (isPreserveId($signUpId.val())){
+                userData.push({"userInfoId":$signUpId.val(), "userInfoPass":$signUpPass1.val()})
+                alert("success!, ")
+            } 
+            
+            else {
+                alert("Error,")
+            }
+            console.log(userData)
+            return false
+        }
+
+        function reset_chk(){
+            $signUpId.val('')
+            $signUpPass1.val('')
+            $singUpPass2.val('')
+            $signUpId.focus()
+            return false
+        }
+
+        function submit_log(){
+            //Admin 모드는 Part2 보여줌
+            if ($signInId.val() === "admin" && $signInPass.val()==="admin"){
+                $("#containerP1").css('display', 'None')
+                $("#containerP2").css('display','Block')
+            
+
+            }
+            else{
+                $("#containerP1").css('display', 'None')
+                $("#containerP3").css('display','Block')
+            }
+            return false
+        }
+    </script>
+    
+</body>
+</html>
