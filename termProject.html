@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <title>Document</title>
+    <link rel="stylesheet" href="term.css">
 </head>
 <body>
     <!--PART1-->
+    <h1 style="font-weight: bold; color :darksalmon; font-size: 3em; font-family:Verdana, Geneva, Tahoma, sans-serif; margin-bottom: 5px; ">WITH PLAN</h1>
     <div id = containerP1>
         <div id = containerP1_1>
             <h2>Create Account</h2>
@@ -56,6 +58,7 @@
                         <button type="submit" class="btn btnBlack">Login</button>					
                     </li>
                 </ul>
+            </form>
         </div>
     </div>
 
@@ -63,16 +66,82 @@
     <!--PART2-->
 
     <div id="containerP2" style="display:None">
+        <button class="logout">Logout</button>
         <h2>Admin mode</h2>
+        
+        <p>Account List</p>
+        <!--https://baessi.tistory.com/109 테이블 생성 참고-->
+        <table id = "accountTable">
+            <thead>
+                <tr class = "accountColumn">
+                    <th>User ID</th>
+                    <th>User Password</th>
+                    <th>User Start</th>
+                    <th>Recent Login</th>
+                </tr>
+            </thead>
+            <tbody class = accountData>
+                
+            </tbody>
+        </table>
+
         
     </div>
 
     <!--PART3-->
 
     <div id="containerP3" style="display:None">
-        <h2></h2>
         
-    </div>
+        <div class="indexList">
+            <div class="line">na</div>
+            <button>Our Campaign</button>
+            <button>Our Goal</button>
+            <button>My Page</button>
+            <button class="logout">Logout</button>
+            <div class="line"></div> 
+        </div>
+        <!--Our Campagin 부분-->
+        <div id="containerP3_1">
+            <h1 class="main">Our Campagin</h1>
+            <div id="onProject">
+                
+                <div>
+                    <img src="http://greenfund.org/data/board/campaign/file1_1638855039.png" alt="Fail to load Image"/>
+                    <h3>Protect the Earth!</h3>
+                    <h4 class="donation" >donation : </h4>
+                </div>
+                <div>
+                    <img src="https://www.unhcr.or.kr/ukraine-emergency/static/images/c1_pic1.jpg" alt="Fail to load Image"/>
+                    <h3>Help the Ukrainian refugees</h3>
+                    <h4 class="donation">donation :</h4>
+                </div>
+                <div>
+                    <img src="http://greenfund.org/data/board/campaign/file1_1651639846.png" alt="Fail to load Image"/>
+                    <h3>Help Uljin-Samchuk Forest recover from forest fires</h3>
+                    <h4 class="donation">donation :</h4>
+                </div>
+            </div>
+        </div>
+        <!--Our Goal 부분-->
+        <div id="containerP3_2">
+            <h1 class="main">Our Goal</h1>
+        </div>
+
+        <div id="containerP3_3">
+            <h1 class="main">My Page</h1>
+        </div>
+
+    </div>    
+
+    
+
+        
+
+        
+
+   
+        
+    
 
 
 
@@ -88,11 +157,43 @@
 
         var $signInId = $("#userId")
         var $signInPass = $("#userPass")
-
+        
+        //로그아웃 부분
+        $(".logout").click(function(){  
+            $("#containerP1").css('display', 'block')
+            $("#containerP2").css('display', 'none')
+            $("#containerP3_1").css('display', 'block')
+            $("#containerP3").css('display', 'none')     
+        })
 
         //ContainerP3 부분
+       
+        $(".indexList>button:nth-child(2)").click(function(){
+            console.log('ka')
+            $("#containerP1").css('display', 'none')
+            $("#containerP2").css('display', 'none')
+            $("#containerP3_1").css('display', 'block')
+            $("#containerP3_2").css('display', 'none')
+            $("#containerP3_3").css('display', 'none')            
+        })
 
-        $("#containerP3 h2").text(`Welcome! ${$signInId.val()}`)
+
+        $(".indexList>button:nth-child(3)").click(function(){
+            $("#containerP1").css('display', 'none')
+            $("#containerP2").css('display', 'none')
+            $("#containerP3_1").css('display', 'none')
+            $("#containerP3_2").css('display', 'block')
+            $("#containerP3_3").css('display', 'none')            
+        })
+
+        $(".indexList>button:nth-child(4)").click(function(){
+            $("#containerP1").css('display', 'none')
+            $("#containerP2").css('display', 'none')
+            $("#containerP3_1").css('display', 'none')
+            $("#containerP3_2").css('display', 'none')
+            $("#containerP3_3").css('display', 'block')            
+        })
+
 
         function isUserInfoId(id){
             for(let info of userData){
@@ -116,7 +217,7 @@
         }
 
         function submit_chk(){
-            //ㅇㅇㅇ
+            
             if (isUserInfoId($signUpId.val())){
                 alert("ID already exist in our records. Please try another one or log in")
                 
@@ -135,7 +236,18 @@
             }
 
             else if (isPreserveId($signUpId.val())){
-                userData.push({"userInfoId":$signUpId.val(), "userInfoPass":$signUpPass1.val()})
+                let userStart = new Date()
+                let userRecent = null
+                userData.push({"userInfoId":$signUpId.val(), "userInfoPass":$signUpPass1.val(), "userStart" : userStart, "userRecent" : null, "donation" : null})
+                //tr 추가
+                $(`<tr id="${$signUpId.val()}"></tr>`).appendTo(".accountData")
+                //tr 밑에 td추가
+                $("<td></td>").text($signUpId.val()).appendTo(`#${$signUpId.val()}`)
+                $("<td></td>").text($signUpPass1.val()).appendTo(`#${$signUpId.val()}`)
+                $("<td></td>").text(userStart).appendTo(`#${$signUpId.val()}`)
+                $("<td class='userRecent'></td>").text(userRecent).appendTo(`#${$signUpId.val()}`)
+                
+               
                 alert("success!, ")
             } 
             
@@ -159,15 +271,40 @@
             if ($signInId.val() === "admin" && $signInPass.val()==="admin"){
                 $("#containerP1").css('display', 'None')
                 $("#containerP2").css('display','Block')
-            
-
+                
             }
             else{
-                $("#containerP1").css('display', 'None')
-                $("#containerP3").css('display','Block')
+                // suc는 로그인이 성공되면 1로 스위치
+                let suc = 0 
+                for (let x of userData){
+
+                    //로그인 성공
+                    if($signInId.val()===x.userInfoId && $signInPass.val()===x.userInfoPass){
+                        $("#containerP1").css('display', 'None')
+                        $("#containerP3").css('display','Block')
+                        $("#containerP3_2").css('display', 'none')
+                        $("#containerP3_3").css('display', 'none')      
+
+                        //최근 로그인 시간 
+                        x.userRecent = new Date()
+                        $(`#${x.userInfoId}>.userRecent`).text(x.userRecent)
+
+                        suc = 1
+                    }
+
+                }
+                //로그인 실패
+                if (suc === 0) {
+                    alert("Please confirm your ID and Password")
+                    $signInId.val('')
+                    $signInPass.val('')
+                }
+                
             }
             return false
         }
+        
+        
     </script>
     
 </body>

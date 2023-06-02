@@ -12,7 +12,7 @@
         $(document).ready(function(){
             var count = 0 
             $('#main').parent().on('click','#main',function(){
-                $(`<div id=div${count}></div>`).appendTo('body')
+                $(`<div id=div${count}></div>`).appendTo('body')                                                                
                 $('<p></p>').text('0').appendTo(`#div${count}`)
                 $('<button></button>').text('increase').appendTo(`#div${count}`)
                 $('<button></button>').text('decrease').appendTo(`#div${count}`)
