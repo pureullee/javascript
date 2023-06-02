@@ -90,8 +90,7 @@
 
     <!--PART3-->
 
-    <div id="containerP3" style="display:None">
-        
+    <div id="containerP3" style="display:None">        
         <div class="indexList">
             <div class="line">na</div>
             <button>Our Campaign</button>
@@ -125,10 +124,140 @@
         <!--Our Goal 부분-->
         <div id="containerP3_2">
             <h1 class="main">Our Goal</h1>
+            <h2>We are here to keep your plans and promises. If you don't keep your promise, I'll collect the donation so that you can fulfill your promise as much as possible.</h2>
         </div>
-
+        <!--My Page 부분(동적으로 생성할필요가있다...)-->
         <div id="containerP3_3">
             <h1 class="main">My Page</h1>
+            <button class="add">+ add</button>
+            <!--add 버튼 눌렀을 때 뜨는 창 부분-->
+            <div class="addFrame">
+                
+                <h3>Add appointment</h3>
+
+                <div>
+                    <p class="addFrameMain">Context</p>
+                    <input class="value" type="text" >
+                </div>
+
+                <div>
+                    <p class="addFrameMain">Time</p>
+                    <div id="timeSet">
+                        <button class="value">9AM</button>
+                        <!--Hour P-->
+                        <div class="hourContainer">
+                            <p>9AM</p>
+                            <p>10AM</p>
+                            <p>11AM</p>
+                            <p>0PM</p>
+                            <p>1PM</p>
+                            <p>2PM</p>
+                            <p>3PM</p>
+                            <p>4PM</p>
+                            <p>5PM</p>
+                            <p>6PM</p>
+                            <p>7PM</p>
+                            <p>8PM</p>
+                            <p>9PM</p>
+                            <p>10PM</p>
+                            <p>11PM</p>
+                            <p>0AM</p>
+                            <p>1AM</p>
+                            <p>2AM</p>
+                            <p>3AM</p>
+                            <p>4AM</p>
+                            <p>5AM</p>
+                            <p>6AM</p>
+                            <p>7AM</p>
+                            <p>8AM</p>
+                        </div>
+                        <button class="value">0minutes</button>
+                        <!--minute P-->
+                        <div class="minuteContainer">
+                            <p>0minutes</p>
+                            <p>5minutes</p>
+                            <p>10minutes</p>
+                            <p>15minutes</p>
+                            <p>20minutes</p>
+                            <p>25minutes</p>
+                            <p>30minutes</p>
+                            <p>35minutes</p>
+                            <p>40minutes</p>
+                            <p>45minutes</p>
+                            <p>50minutes</p>
+                            <p>55minutes</p>
+                        </div>
+                        <h3>~</h3>
+                        <button class="value">10AM</button>
+                         <!--Hour P-->
+                        <div class="hourContainer">
+                            <p>9AM</p>
+                            <p>10AM</p>
+                            <p>11AM</p>
+                            <p>0PM</p>
+                            <p>1PM</p>
+                            <p>2PM</p>
+                            <p>3PM</p>
+                            <p>4PM</p>
+                            <p>5PM</p>
+                            <p>6PM</p>
+                            <p>7PM</p>
+                            <p>8PM</p>
+                            <p>9PM</p>
+                            <p>10PM</p>
+                            <p>11PM</p>
+                            <p>0AM</p>
+                            <p>1AM</p>
+                            <p>2AM</p>
+                            <p>3AM</p>
+                            <p>4AM</p>
+                            <p>5AM</p>
+                            <p>6AM</p>
+                            <p>7AM</p>
+                            <p>8AM</p>
+                        </div>
+
+                        <button class="value">0minutes</button>
+                        <!--minute P-->
+                        <div class="minuteContainer">
+                            <p>0minutes</p>
+                            <p>5minutes</p>
+                            <p>10minutes</p>
+                            <p>15minutes</p>
+                            <p>20minutes</p>
+                            <p>25minutes</p>
+                            <p>30minutes</p>
+                            <p>35minutes</p>
+                            <p>40minutes</p>
+                            <p>45minutes</p>
+                            <p>50minutes</p>
+                            <p>55minutes</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button class="addFrameButton save">save</button>
+                    <button class="addFrameButton cancel">cancel</button>
+                </div>
+            </div>
+
+            <!--Table-->
+            <!--유저별로 동적으로 생성해야하는 부분(회원가입할때)-->
+        <!--
+            <table id="MypageTable" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Content</th>
+                        <th>Check</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+
+                </tbody>
+            </table>
+        -->
         </div>
 
     </div>    
@@ -151,10 +280,10 @@
         var $signUpId = $("#userInfoId")
         var $signUpPass1 = $("#userInfoPass1")
         var $singUpPass2 = $("#userInfoPass2")
-        var userData = []
+        var userData = [{'userInfoId' : "admin"}]
 
         // SignIn 변수
-
+        
         var $signInId = $("#userId")
         var $signInPass = $("#userPass")
         
@@ -163,13 +292,15 @@
             $("#containerP1").css('display', 'block')
             $("#containerP2").css('display', 'none')
             $("#containerP3_1").css('display', 'block')
+            $(`#Mypage${$signInId.val()}`).css('display','none') // ab123으로 로그인 한 경우의 마이페이지 테이블을 오프시키는 부분 
             $("#containerP3").css('display', 'none')     
         })
 
         //ContainerP3 부분
-       
+        
+            //Our Campagin 부분
         $(".indexList>button:nth-child(2)").click(function(){
-            console.log('ka')
+            
             $("#containerP1").css('display', 'none')
             $("#containerP2").css('display', 'none')
             $("#containerP3_1").css('display', 'block')
@@ -177,7 +308,7 @@
             $("#containerP3_3").css('display', 'none')            
         })
 
-
+            //Our Goal 부분
         $(".indexList>button:nth-child(3)").click(function(){
             $("#containerP1").css('display', 'none')
             $("#containerP2").css('display', 'none')
@@ -185,14 +316,141 @@
             $("#containerP3_2").css('display', 'block')
             $("#containerP3_3").css('display', 'none')            
         })
-
+            //My page 부분 
         $(".indexList>button:nth-child(4)").click(function(){
             $("#containerP1").css('display', 'none')
             $("#containerP2").css('display', 'none')
             $("#containerP3_1").css('display', 'none')
             $("#containerP3_2").css('display', 'none')
-            $("#containerP3_3").css('display', 'block')            
+            $("#containerP3_3").css('display', 'block')
+            $(`#Mypage${$signInId.val()}`).css('display','')  // ab123이 로그인 했을때 테이블을 다시불러오는 부분          
         })
+                //add할시 창 생성 함수 
+        $('.add').click(function(){
+            //위치 반환
+            let offset = $(".add").offset()
+
+            $(".addFrame").css('display','block')
+            
+           
+        })
+                    //add로 생성된 창에 시간을 다시 띄우는 부분
+
+                    $("#timeSet>button").each(function(index,element){
+                        
+                        $(element).click(function(){
+                            //시간 label
+                            if(index%2 == 0){
+                                $(".hourContainer").css('display','none')
+                                $(".minuteContainer").css('display','none')
+                                var $h = $(".hourContainer").eq(Math.floor(index/2))
+                                $h.css('display','block')
+                                $h.children().click(function(){
+                                    let hour = $(this).text()
+                                    $(element).text(hour)
+                                    $h.css('display','none')
+                                })
+                            }
+                            //분 label
+                            else {
+                                $(".hourContainer").css('display','none')
+                                $(".minuteContainer").css('display','none')
+                                var $m = $(".minuteContainer").eq(Math.floor(index/2))
+                                $m.css('display','block')
+                                //이부분 어떻게 했는데 잘 이해가 안됨. 그냥 미닛콘테이너>p로 클릭 이벤트 하면 양 미닛이 둘다 변경되버리는 오류가 있었음.  
+                                $m.children().click(function(){
+                                    let minute = $(this).text()
+                                    $(element).text(minute)
+                                    $m.css('display','none') 
+                                }) 
+                            }
+                        })
+                    })
+                                            
+                    $(".save").click(function(){  
+                        let now = new Date().getTime() // 현재 로그인 id에 할당할 식별자로쓸 것 
+                        let startString = ''
+                        let endString = ''
+                        $(".value").each(function(index,element){
+                            // content
+                            // time 데이터 수집 
+                            if (index>=1){
+                                //am, minutes을 소문자화
+                                let time = $(element).text().toLowerCase()
+                                
+                                //start시간 수집
+                                if (index<3) {
+
+                                    if (time.includes("am")){
+                                        if (time.replace("am","")<10){
+                                            var hour = "0"+time.replace("am","")
+                                            }
+                                            else {
+                                                var hour = time.replace("am","")
+                                            }
+                                        startString = startString + hour
+                                    }
+                                    else if (time.includes("pm")){
+                                        var hour = 12+ parseInt(time.replace("pm",""))
+                                        hour = hour.toString()
+                                        startString = startString + hour
+                                    }
+
+                                    if (time.includes("minutes")){
+                                        var minute = time.replace("minutes","")
+                                        if (minute<10){
+                                            minute = "0"+minute
+                                        }
+                                        startString = startString + minute
+                                    }
+                                    console.log(startString)
+                                }
+                                else if (index>=3){
+                                    if (time.includes("am")){
+                                        if (time.replace("am","")<10){
+                                        var hour = "0"+time.replace("am","")
+                                        }
+                                        else {
+                                            var hour = time.replace("am","")
+                                        }
+                                        endString = endString + hour
+                                    }
+                                    else if (time.includes("pm")){
+                                        var hour = 12+ parseInt(time.replace("pm",""))
+                                        hour = hour.toString()
+                                        endString = endString + hour
+                                    }
+
+                                    if (time.includes("minutes")){
+                                        var minute = time.replace("minutes","")
+                                        if (minute<10){
+                                            minute = "0"+minute
+                                        }
+                                        endString = endString + minute
+                                    }
+                                    console.log(endString)
+                                }
+                            }              
+                        })// start, end 수집완료
+                        
+                        let content = $(".value:first").val()
+                        console.log(content)
+                        
+                            //행추가
+                            $(`<tr id="${$signInId.val()}${now}"></tr>`).appendTo($(`#Mypage${$signInId.val()} tbody`))
+                            //데이터추가
+                            $("<td></td>").text(startString).appendTo(`#${$signInId.val()}${now}`)
+                            $("<td></td>").text(endString).appendTo(`#${$signInId.val()}${now}`)
+                            $("<td></td>").text(content).appendTo(`#${$signInId.val()}${now}`)
+                            $("<td class='check'></td>").appendTo(`#${$signInId.val()}${now}`)
+                            //수정 버튼
+                            $("<button class='modify'></button>").appendTo(`#${$signInId.val()}${now} .check`)
+                            //삭제 버튼
+                            $("<button class='drop'></button>").appendTo(`#${$signInId.val()}${now} .check`)
+                    })
+
+                    
+                    
 
 
         function isUserInfoId(id){
@@ -242,11 +500,23 @@
                 //tr 추가
                 $(`<tr id="${$signUpId.val()}"></tr>`).appendTo(".accountData")
                 //tr 밑에 td추가
+                //admin 관리 데이터 부분
                 $("<td></td>").text($signUpId.val()).appendTo(`#${$signUpId.val()}`)
                 $("<td></td>").text($signUpPass1.val()).appendTo(`#${$signUpId.val()}`)
                 $("<td></td>").text(userStart).appendTo(`#${$signUpId.val()}`)
                 $("<td class='userRecent'></td>").text(userRecent).appendTo(`#${$signUpId.val()}`)
-                
+
+                //mypage부분 
+
+                $(`<table id="Mypage${$signUpId.val()}" ></table>`).appendTo("#containerP3_3")
+                //thead, tbody  
+                $("<thead></thead>").appendTo($(`#Mypage${$signUpId.val()}`))
+                $("<tbody></tbody>").appendTo($(`#Mypage${$signUpId.val()}`))
+                //thead row
+                $("<th style='text-align: center';>Start Time</th>").appendTo($(`#Mypage${$signUpId.val()} > thead`))
+                $("<th style='text-align: center';>End Time</th>").appendTo($(`#Mypage${$signUpId.val()} > thead`))
+                $("<th style='text-align: center';>Content</th>").appendTo($(`#Mypage${$signUpId.val()} > thead`))
+                $("<th style='text-align: center';>Check</th>").appendTo($(`#Mypage${$signUpId.val()} > thead`))               
                
                 alert("success!, ")
             } 

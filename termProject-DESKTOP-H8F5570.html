@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <title>Document</title>
+    <link rel="stylesheet" href="term.css">
+</head>
+<body>
+    <!--PART1-->
+    <h1 style="font-weight: bold; color :darksalmon; font-size: 3em; font-family:Verdana, Geneva, Tahoma, sans-serif; margin-bottom: 5px; ">WITH PLAN</h1>
+    <div id = containerP1>
+        <div id = containerP1_1>
+            <h2>Create Account</h2>
+            <form action="#" id="signUp" onsubmit="return submit_chk(this)" onreset="return reset_chk(this)">
+                <ul id="userInfo">
+                    <li>
+                        <label for="userInfoId" class="field">ID</label>
+                        <input type="text" id="userInfoId" placeholder="5-20 lowercase letters, numbers" required>
+                    </li>
+                    <li>
+                        <label for="userInfoPass1" class="field">Password</label>
+                        <input type="text" id="userInfoPass1" placeholder="8-12 characters. A combination of uppercase letters, lowercase letters, numbers, and symbol" required>
+                    </li>
+                    <li>
+                        <label for="userInfoPass2" class="field">Confirm Password</label>
+                        <input type="text" id="userInfoPass2" required>
+                    </li>
+                </ul>
+                <ul id="singUpbuttons">
+                    <li>
+                        <button type="submit" class="btn btnBlack">Sign up</button>					
+                    </li>
+                    <li>
+                        <button type="reset" class="btn btnGray">Cancel</button>
+                    </li>
+                </ul>
+            </form>
+        </div>
+        <div id = containerP1_2>
+            <h2>Sign in</h2>
+            <form action="#" id="signIn" onsubmit="return submit_log(this)">
+                <ul id="user">
+                    <li>
+                        <label for="userId" class="field">ID</label>
+                        <input type="text" id="userId" required>
+                    </li>
+                    <li>
+                        <label for="userPass" class="field">Password</label>
+                        <input type="text" id="userPass" required>
+                    </li>
+                </ul>
+
+                <ul id="signInbuttons">
+                    <li>
+                        <button type="submit" class="btn btnBlack">Login</button>					
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+
+
+    <!--PART2-->
+
+    <div id="containerP2" style="display:None">
+        <button class="logout">Logout</button>
+        <h2>Admin mode</h2>
+        
+        <p>Account List</p>
+        <!--https://baessi.tistory.com/109 테이블 생성 참고-->
+        <table id = "accountTable">
+            <thead>
+                <tr class = "accountColumn">
+                    <th>User ID</th>
+                    <th>User Password</th>
+                    <th>User Start</th>
+                    <th>Recent Login</th>
+                </tr>
+            </thead>
+            <tbody class = accountData>
+                
+            </tbody>
+        </table>
+
+        
+    </div>
+
+    <!--PART3-->
+
+    <div id="containerP3" style="display:None">
+        
+        <div class="indexList">
+            <div class="line"></div>
+            <button>Our Campaign</button>
+            <button>Our Goal</button>
+            <button>My Page</button>
+            <button class="logout">Logout</button>
+            <div class="line"></div> 
+        </div>
+        
+        <h1 id="main1">Our Campagin</h1>
+        
+        <div id="onProject">
+            
+            <div>
+                <img src="http://greenfund.org/data/board/campaign/file1_1638855039.png" alt="Fail to load Image"/>
+                <h3>Protect the Earth!</h3>
+                <h4 class="donation" >donation : </h4>
+            </div>
+            <div>
+                <img src="https://www.unhcr.or.kr/ukraine-emergency/static/images/c1_pic1.jpg" alt="Fail to load Image"/>
+                <h3>Help the Ukrainian refugees</h3>
+                <h4 class="donation">donation :</h4>
+            </div>
+            <div>
+                <img src="http://greenfund.org/data/board/campaign/file1_1651639846.png" alt="Fail to load Image"/>
+                <h3>Help Uljin-Samchuk Forest recover from forest fires</h3>
+                <h4 class="donation">donation :</h4>
+            </div>
+        </div>
+    </div>    
+
+    <!--OurGoal 부분 -->
+    <div id ="containerP4" style="display:none">
+        
+
+    </div>
+    <!--mypage 부분 -->
+    <div id ="containerP5" style="display:none">
+
+    </div>
+    
+        
+    
+
+
+
+    
+    <script>
+        // SignUp 변수
+        var $signUpId = $("#userInfoId")
+        var $signUpPass1 = $("#userInfoPass1")
+        var $singUpPass2 = $("#userInfoPass2")
+        var userData = []
+
+        // SignIn 변수
+
+        var $signInId = $("#userId")
+        var $signInPass = $("#userPass")
+        
+        //로그아웃 부분
+        $(".logout").click(function(){  
+            $("#containerP1").css('display', 'block')
+            $("#containerP2").css('display', 'none')
+            $("#containerP3").css('display', 'none')     
+        })
+
+        //ContainerP3 부분
+
+        $(".indexList>button:nth-child(0)").click(function(){
+            $("#containerP1").css('display', 'none')
+            $("#containerP2").css('display', 'none')
+            $("#containerP3").css('display', 'block')
+            $("#containerP4").css('display', 'none')
+            $("#containerP5").css('display', 'none')
+            
+        })
+        //ContainerP4부분
+        $(".indexList>button:nth-child(0)").click(function(){
+            $("#containerP1").css('display', 'none')
+            $("#containerP2").css('display', 'none')
+            $("#containerP3").css('display', 'block')
+            $("#containerP4").css('display', 'none')
+            $("#containerP5").css('display', 'none')
+            
+        })
+        function isUserInfoId(id){
+            for(let info of userData){
+                if (id === info.userInfoId){
+                    return true
+                }
+            }
+            return false
+        }
+
+        function isPreserveId(id){
+            let reg = /^[a-z0-9]{5,20}$/g
+            // 규정이 통과하면
+            return reg.test(id)
+        }
+
+        function isPreservePass(pass){
+            let reg = /^(?=.*?[A-Z])(?=.*[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*()]).{8,12}$/g
+            return reg.test(pass)
+        
+        }
+
+        function submit_chk(){
+            
+            if (isUserInfoId($signUpId.val())){
+                alert("ID already exist in our records. Please try another one or log in")
+                
+            }
+
+            else if (!isPreserveId($signUpId.val())){
+                alert("Please follow the rules and enter your ID")
+            }
+
+            else if (!isPreservePass($signUpPass1.val())){
+                alert("Please enter your passward 8-12 characters. A combination of uppercase letters, lowercase letters, numbers, and symbol")
+            }
+
+            else if ($signUpPass1.val() !== $singUpPass2.val()){
+                alert("The password you entered does not match. Please check again.")
+            }
+
+            else if (isPreserveId($signUpId.val())){
+                let userStart = new Date()
+                let userRecent = null
+                userData.push({"userInfoId":$signUpId.val(), "userInfoPass":$signUpPass1.val(), "userStart" : userStart, "userRecent" : null, "donation" : null})
+                //tr 추가
+                $(`<tr id="${$signUpId.val()}"></tr>`).appendTo(".accountData")
+                //tr 밑에 td추가
+                $("<td></td>").text($signUpId.val()).appendTo(`#${$signUpId.val()}`)
+                $("<td></td>").text($signUpPass1.val()).appendTo(`#${$signUpId.val()}`)
+                $("<td></td>").text(userStart).appendTo(`#${$signUpId.val()}`)
+                $("<td class='userRecent'></td>").text(userRecent).appendTo(`#${$signUpId.val()}`)
+                
+               
+                alert("success!, ")
+            } 
+            
+            else {
+                alert("Error,")
+            }
+            console.log(userData)
+            return false
+        }
+
+        function reset_chk(){
+            $signUpId.val('')
+            $signUpPass1.val('')
+            $singUpPass2.val('')
+            $signUpId.focus()
+            return false
+        }
+
+        function submit_log(){
+            //Admin 모드는 Part2 보여줌
+            if ($signInId.val() === "admin" && $signInPass.val()==="admin"){
+                $("#containerP1").css('display', 'None')
+                $("#containerP2").css('display','Block')
+                
+            }
+            else{
+                // suc는 로그인이 성공되면 1로 스위치
+                let suc = 0 
+                for (let x of userData){
+
+                    //로그인 성공
+                    if($signInId.val()===x.userInfoId && $signInPass.val()===x.userInfoPass){
+                        $("#containerP1").css('display', 'None')
+                        $("#containerP3").css('display','Block')
+
+                        //최근 로그인 시간 
+                        x.userRecent = new Date()
+                        $(`#${x.userInfoId}>.userRecent`).text(x.userRecent)
+
+                        suc = 1
+                    }
+
+                }
+                //로그인 실패
+                if (suc === 0) {
+                    alert("Please confirm your ID and Password")
+                    $signInId.val('')
+                    $signInPass.val('')
+                }
+                
+            }
+            return false
+        }
+        
+        
+    </script>
+    
+</body>
+</html>

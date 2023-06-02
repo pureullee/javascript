@@ -2,7 +2,90 @@
 #containerP3{
   text-align: center;
 }
+#containerP3 table{
+  text-align: center;
+}
+.add{
+  float:right;
+  width: 100px;
+  height: 40px;
+  font-size: 1em;
+  border-radius: 7px;
+  background-color: #dbbc9c;
+  color : rgb(73, 73, 73);
+  margin-bottom: 3px;
+}
 
+.addFrame{
+  display:none;
+  position:fixed;
+  right: 150px;
+  z-index:1;
+  width: 400px;;
+  height: 300px;
+  overflow :auto;
+  background-color: #b39d88b7;
+  font-size: 1em; 
+  border-radius: 10px;
+  
+}
+.addFrameButton{
+  
+  width: 100px;
+  height: 30px;
+  left:50px
+}
+
+.addFrame > div {
+  float:left;
+  display: flex;
+  text-align:right;
+  margin-top: 20px;
+  margin-left : 20px;
+  
+}
+
+.addFrame input {
+  width: 180px;
+}
+  
+.addFrameMain{
+  margin-left: 10px;
+  margin-right: 10px;
+}
+#timeSet  {
+  display: flex;
+  
+}
+#timeSet > button {
+  align-items: center;
+  height: auto;
+}
+.hourContainer{
+  display: none;
+  position:absolute;
+  z-index: 2;
+  width: 80px;
+  height: 200px;
+  background-color: #f7efe8b7;
+  overflow: auto;
+  right:10px;
+  top:50px;
+  text-align: center;
+  
+}
+.minuteContainer{
+  display: none;
+  position:absolute;
+  z-index: 2;
+  width: 80px;
+  height: 200px;
+  background-color: #f7efe8b7;
+  overflow: auto;
+  right:10px;
+  top:50px;
+  text-align: center;
+}
 #onProject {
   display: flex;
   width: auto;
