@@ -137,7 +137,7 @@
 
                 <div>
                     <p class="addFrameMain">Context</p>
-                    <input class="value" type="text" >
+                    <input class="value" type="text" autocomplete="off" > 
                 </div>
 
                 <div>
@@ -327,12 +327,28 @@
         })
                 //add할시 창 생성 함수 
         $('.add').click(function(){
-            //위치 반환
-            let offset = $(".add").offset()
-
             $(".addFrame").css('display','block')
-            
-           
+            $(".addFrame > h3").text('Add appointment')
+
+            $(".save").off('click').on('click', function(){                       
+                result = startEndCollect($(".value"))
+                
+                now = result[0]
+                startString = result[1]
+                endString = result[2]
+                content = result[3]
+                    //행추가
+                $(`<tr id="${$signInId.val()}${now}"></tr>`).appendTo($(`#Mypage${$signInId.val()} tbody`))
+                    //데이터추가
+                $("<td></td>").text(startString).appendTo(`#${$signInId.val()}${now}`)
+                $("<td class='endTimeColumn'></td>").text(endString).appendTo(`#${$signInId.val()}${now}`)
+                $("<td></td>").text(content).appendTo(`#${$signInId.val()}${now}`)
+                $("<td class='check'></td>").appendTo(`#${$signInId.val()}${now}`)
+                    //수정 버튼
+                $("<button class='modify'></button>").text('m').appendTo(`#${$signInId.val()}${now} .check`)
+                    //삭제 버튼
+                $("<button class='drop'></button>").text('x').appendTo(`#${$signInId.val()}${now} .check`)
+            })   
         })
                     //add로 생성된 창에 시간을 다시 띄우는 부분
 
@@ -366,91 +382,217 @@
                             }
                         })
                     })
+                    
                                             
-                    $(".save").click(function(){  
-                        let now = new Date().getTime() // 현재 로그인 id에 할당할 식별자로쓸 것 
-                        let startString = ''
-                        let endString = ''
-                        $(".value").each(function(index,element){
-                            // content
-                            // time 데이터 수집 
-                            if (index>=1){
-                                //am, minutes을 소문자화
-                                let time = $(element).text().toLowerCase()
-                                
-                                //start시간 수집
-                                if (index<3) {
+                    
 
-                                    if (time.includes("am")){
-                                        if (time.replace("am","")<10){
-                                            var hour = "0"+time.replace("am","")
-                                            }
-                                            else {
-                                                var hour = time.replace("am","")
-                                            }
-                                        startString = startString + hour
-                                    }
-                                    else if (time.includes("pm")){
-                                        var hour = 12+ parseInt(time.replace("pm",""))
-                                        hour = hour.toString()
-                                        startString = startString + hour
-                                    }
+                    //cancel 구현
 
-                                    if (time.includes("minutes")){
-                                        var minute = time.replace("minutes","")
-                                        if (minute<10){
-                                            minute = "0"+minute
-                                        }
-                                        startString = startString + minute
-                                    }
-                                    console.log(startString)
-                                }
-                                else if (index>=3){
-                                    if (time.includes("am")){
-                                        if (time.replace("am","")<10){
-                                        var hour = "0"+time.replace("am","")
-                                        }
-                                        else {
-                                            var hour = time.replace("am","")
-                                        }
-                                        endString = endString + hour
-                                    }
-                                    else if (time.includes("pm")){
-                                        var hour = 12+ parseInt(time.replace("pm",""))
-                                        hour = hour.toString()
-                                        endString = endString + hour
-                                    }
+                    $(".cancel").click(function(){
+                        $(".addFrame").css('display','none')
+                    })
+                    
+                    //drop 구현 각행을 제거함
+                    //정적인 부모요소에 이벤트 해야함.. 동적인 부보면 안되서 document에 이벤트 위임시킴
+                    $(document).on('click','.drop',function(){
+                        $(this).parent().parent().remove()
+                    })
+                    
 
-                                    if (time.includes("minutes")){
-                                        var minute = time.replace("minutes","")
-                                        if (minute<10){
-                                            minute = "0"+minute
-                                        }
-                                        endString = endString + minute
-                                    }
-                                    console.log(endString)
-                                }
-                            }              
-                        })// start, end 수집완료
+                    //modify 
+
+                    $(document).on('click','.modify',function(){
+                        $(".addFrame").css('display','block')
+                        $(".addFrame > h3").text('Modify appointment')
                         
-                        let content = $(".value:first").val()
-                        console.log(content)
-                        
-                            //행추가
-                            $(`<tr id="${$signInId.val()}${now}"></tr>`).appendTo($(`#Mypage${$signInId.val()} tbody`))
-                            //데이터추가
-                            $("<td></td>").text(startString).appendTo(`#${$signInId.val()}${now}`)
-                            $("<td></td>").text(endString).appendTo(`#${$signInId.val()}${now}`)
-                            $("<td></td>").text(content).appendTo(`#${$signInId.val()}${now}`)
-                            $("<td class='check'></td>").appendTo(`#${$signInId.val()}${now}`)
-                            //수정 버튼
-                            $("<button class='modify'></button>").appendTo(`#${$signInId.val()}${now} .check`)
-                            //삭제 버튼
-                            $("<button class='drop'></button>").appendTo(`#${$signInId.val()}${now} .check`)
+                        let tr = $(this).parent().parent()
+                        //start, end, content만 선택
+                        let startTime,  endTime, content
+                        tr.find('td:lt(3)').each(function(index,element){
+                            if (index === 0 ){
+                                startTime = $(element).text()
+                            }
+                            else if (index ===1){
+                                endTime = $(element).text()
+                            }
+                            else if (index ===2){
+                                content = $(element).text()
+                            }
+                        })
+
+                        // 0900 -> 9am 0minutes로 바꾸는 과정
+                        let startHour = startTime.slice(0,2)
+                        let startMinute = startTime.slice(2,)
+                        let endHour = endTime.slice(0,2)
+                        let endMinute = endTime.slice(2,)
+
+                        startHour = timeToHour(startHour)
+                        endHour = timeToHour(endHour)
+                        startMinute = timeTominute(startMinute)
+                        endMinute = timeTominute(endMinute)
+
+                        // modify appointment에 초기값 할당 
+                        $(".addFrame input").val(content)
+                        $("#timeSet > .value").each(function(index,element){
+                            if (index === 0 ){
+                                $(element).text(startHour)
+                            } else if (index ===1){
+                                 $(element).text(startMinute)
+                            } else if (index ===2){
+                                 $(element).text(endHour)
+                            } else if (index ===3){
+                                 $(element).text(endMinute)
+                            }    
+                        })
+                        // save 버튼 누르면 기존 add에 있던 save기능을 제거해야함 row추가 제거할 필요가있음
+
+                        $(".save").off('click').on('click', function(){
+
+                            result = startEndCollect($(".value"))
+                            now = result[0]
+                            startString = result[1]
+                            endString = result[2]
+                            content = result[3]
+                            //기존 로우에 있는 값 변경
+                            
+                            tr.find('td:lt(3)').each(function(index,element){
+                                if (index===0){
+                                    $(element).text(startString)
+                                } else if (index===1){
+                                    $(element).text(endString)
+                                } else if (index===2){
+                                    $(element).text(content)               
+                                }
+                            })
+                        })
                     })
 
+                    // endtime으로부터 1분이 지난 경우라면 modify, drop 기능 막아버려야함
+                    // 동적으로 생성되기에 간접 선택
+                   
+                    setInterval(function(){
+                        
+                        $(".endTimeColumn").each(function(index,element){
+                            console.log('1')
+                            let endTimeText = $(element).text()
+                            let endHour = endTimeText.slice(0,2)
+                            let endMinute = endTimeText.slice(2)
+        
+                            let endTime = new Date()
+                            endTime.setHours(endHour,endMinute,0)
+        
+                            let overTime = endTime
+                            
+                            overTime.setMinutes(endTime.getMinutes()+1)
+                            console.log(overTime)
+                            let curTime = new Date()
+                            console.log("x")
+                            if (curTime >= overTime){
+                                $(element).parent().find('td').css('background-color','#df8f8f')
+                                $(element).parent().find('button').css('display','none')
+                                console.log($(element).find('button'))
+                            }
+                        })
+                    },3000)
                     
+                  
                     
+                       
+
+        
+        
+        // save 하기 위해 데이터들을 분리하고 모으는 함수
+        function startEndCollect($cl){
+            let now = new Date().getTime() // 현재 로그인 id에 할당할 식별자로쓸 것 
+            let startString = ''
+            let endString = ''
+            $cl.each(function(index,element){
+                // content
+                // time 데이터 수집 
+                if (index>=1){
+                    //am, minutes을 소문자화
+                    let time = $(element).text().toLowerCase()                    
+                    //start시간 수집
+                    if (index<3) {
+
+                        if (time.includes("am")){
+                            if (time.replace("am","")<10){
+                                var hour = "0"+time.replace("am","")
+                                }
+                                else {
+                                    var hour = time.replace("am","")
+                                }
+                            startString = startString + hour
+                        }
+                        else if (time.includes("pm")){
+                            var hour = 12+ parseInt(time.replace("pm",""))
+                            hour = hour.toString()
+                            startString = startString + hour
+                        }
+
+                        if (time.includes("minutes")){
+                            var minute = time.replace("minutes","")
+                            if (minute<10){
+                                minute = "0"+minute
+                            }
+                            startString = startString + minute
+                        }
+                        
+                    }
+                    else if (index>=3){
+                        if (time.includes("am")){
+                            if (time.replace("am","")<10){
+                            var hour = "0"+time.replace("am","")
+                            }
+                            else {
+                                var hour = time.replace("am","")
+                            }
+                            endString = endString + hour
+                        }
+                        else if (time.includes("pm")){
+                            var hour = 12+ parseInt(time.replace("pm",""))
+                            hour = hour.toString()
+                            endString = endString + hour
+                        }
+
+                        if (time.includes("minutes")){
+                            var minute = time.replace("minutes","")
+                            if (minute<10){
+                                minute = "0"+minute
+                            }
+                            endString = endString + minute
+                        }
+                        
+                    }
+                }              
+            })// start, end 수집완료
+            
+            let content = $(".value:first").val()
+
+            return [now,startString,endString,content]
+        }
+
+
+        function timeToHour(hour){
+            //오후인경우
+            if (parseInt(hour)>=12){
+                hour = (parseInt(hour)-12).toString() +"PM"
+            }
+            //10시 11시
+            else if (parseInt(hour)>=10){
+                hour = hour+"AM"
+            }
+            //0~9시
+            else{
+                 hour = hour.slice(1)+"AM"
+            }
+            return hour
+        }
+
+        function timeTominute(minute){
+            minute = parseInt(minute).toString() +"minutes"
+            return minute
+        }
 
 
         function isUserInfoId(id){
