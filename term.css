@@ -1,3 +1,6 @@
+button {
+  cursor :pointer;
+}
 
 #containerP3{
   text-align: center;
@@ -5,6 +8,20 @@
 #containerP3 table{
   text-align: center;
 }
+.check > button {
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+  font-size: 10px;
+  background-color: #e2dad1;
+  color: gray;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+.check > button:hover{
+  background-color: #a8a5a2;
+}
+
 .add{
   float:right;
   width: 100px;
