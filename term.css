@@ -1,12 +1,73 @@
+
+.Sign{
+  text-align: center;
+  width:400px;
+  margin-bottom: 40px;
+  align-items: center;
+  justify-content: center
+}
+
+#containerP1 input {
+	width : 200px;
+  height: 30px;
+  background-color: #eedad6;
+}
+#containerP1  h2 {
+  color: #f1725b;
+}
+
+#containerP2 {
+  
+  color: gray;
+}
+
+#containerP2 button {
+  width : 200px;
+  height: 30px;
+  background-color: #dbb8b1;
+  border-radius: 5px;
+  border: 1px;
+  float: right; 
+  color:gray;
+}
+
+.signbuttons {
+  display: flex;
+  justify-content:center;
+}
+.signbuttons > button {
+  width: 25%;
+  margin:  0 10px; 
+  background-color: #dbb8b1;
+  border-radius: 5px;
+  border: 1px;
+  height: 30px;
+  color: rgb(87, 87, 87);
+}
+#signUp li{
+  text-align: left;
+  color: red;
+  margin-bottom: 7px;
+  font-size: 14px;
+}
+
 button {
   cursor :pointer;
 }
 
 #containerP3{
   text-align: center;
+  color: gray;
 }
 #containerP3 table{
   text-align: center;
+  width: 50%;
+  float: right;
+  
+}
+#containerP3_2 {
+  width: 60%;
+  margin: 0 20%;
 }
 .check > button {
   width: 20px;
@@ -22,10 +83,16 @@ button {
   background-color: #a8a5a2;
 }
 
-.add{
+.tableControl {
+  margin-right:200px;
   float:right;
+  width: 110px;
+}
+
+.tableControl >button{
+  
   width: 100px;
-  height: 40px;
+  height: 50px;
   font-size: 1em;
   border-radius: 7px;
   background-color: #dbbc9c;
@@ -36,7 +103,7 @@ button {
 .addFrame{
   display:none;
   position:fixed;
-  right: 150px;
+  right: 350px;
   z-index:1;
   width: 400px;;
   height: 300px;
@@ -103,6 +170,56 @@ button {
   top:50px;
   text-align: center;
 }
+
+.changeFrame{
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  z-index: 1;
+  width: 500px;
+  height: 500px;
+  right : 350px;
+  overflow :auto;
+  background-color: #b39d88b7;
+  font-size: 1em; 
+  border-radius: 10px;
+  text-align: center;
+}
+.checkContainer{
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+.changeFrame > div {
+  width: 400px;
+  
+}
+
+.imageContainer > img {
+  width: 325px;
+  height: 210px;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttonContainer > button{
+  flex:auto;
+  padding: 10px;
+  margin : 10px 5px;
+}
+
+
+
+
+
+
+
+
 #onProject {
   display: flex;
   width: auto;
@@ -169,7 +286,6 @@ ul li {
 }
 
 input {
-  float:left;
   padding:0.6em;
   background: #ece9e9d2;
   margin-bottom: 15px;
